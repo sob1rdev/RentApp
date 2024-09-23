@@ -21,7 +21,7 @@
 <body class="dark:bg-slate-900">
 
 <x-navbar/>
-
+{{$slot}}
 
 <x-footer/>
 

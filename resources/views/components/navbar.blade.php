@@ -41,11 +41,10 @@
         <div id="navigation">
             <!-- Navigation Menu-->
             <ul class="navigation-menu justify-end nav-light">
-                <li >
+                <li class="parent-parent-menu-item">
                     <a href="/">Ads</a><span class="menu-arrow"></span>
                 </li>
             </ul><!--end navigation menu-->
         </div><!--end navigation-->
     </div><!--end container-->
 </nav>
-</body>
