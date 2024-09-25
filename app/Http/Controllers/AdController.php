@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Ad;
+use App\Models\Status;
 use Illuminate\Http\Request;
 
 class AdController extends Controller
@@ -17,9 +18,9 @@ class AdController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
+    public function create(): \Illuminate\Contracts\View\View|\Illuminate\Contracts\View\Factory|\Illuminate\Foundation\Application
     {
-        //
+        return view('ads.create');
     }
 
     /**
@@ -27,7 +28,16 @@ class AdController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        Ad::query()->create([
+            'title' => $request->get('title'),
+            'description' => $request->get('description'),
+            'address' => $request->get('address'),
+            'branch_id' => $request->get('branch_id'),
+            'user_id' => auth()->id(),
+            'status_id' => Status::ACTIVE,
+            'price' => $request->get('price'),
+            'rooms' => $request->get('rooms'),
+        ]);
     }
 
     /**

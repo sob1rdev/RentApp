@@ -4,10 +4,6 @@ use App\Http\Controllers\AdController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', function () {
-    return view('home');
-});
-
 Route::get('/', [AdController::class, 'index']);
 
 Route::resource('ads', AdController::class);
