@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\Ad;
+use App\Models\AdImage;
 use App\Models\Status;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class AdController extends Controller
 {
@@ -25,18 +27,28 @@ class AdController extends Controller
 
     /**
      * Store a newly created resource in storage.
+     * @param Request $request
+     * @param $ad
      */
-    public function store(Request $request)
+    public function store(Request $request): void
     {
-        Ad::query()->create([
+        $ad = Ad::query()->create([
             'title' => $request->get('title'),
             'description' => $request->get('description'),
+            'images' => 'image| mimes:jpeg,png,jpg,gif,svg|max:2048',
             'address' => $request->get('address'),
             'branch_id' => $request->get('branch_id'),
             'user_id' => auth()->id(),
             'status_id' => Status::ACTIVE,
             'price' => $request->get('price'),
             'rooms' => $request->get('rooms'),
+        ]);
+
+        $file = Storage::disk('public')->put('/', $request->image);
+
+        AdImage::query()->create([
+            'ad_id' => $ad->id,
+            'name' => $file,
         ]);
     }
 
