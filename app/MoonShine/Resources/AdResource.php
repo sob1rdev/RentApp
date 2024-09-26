@@ -10,6 +10,8 @@ use App\Models\Ad;
 
 use MoonShine\Fields\Enum;
 use MoonShine\Fields\Number;
+use MoonShine\Fields\Relationships\BelongsTo;
+use MoonShine\Fields\Relationships\HasMany;
 use MoonShine\Fields\Text;
 use MoonShine\Resources\ModelResource;
 use MoonShine\Decorations\Block;
@@ -34,15 +36,16 @@ class AdResource extends ModelResource
         return [
             Block::make([
                 ID::make()->sortable(),
-                Text::make('title'),
-                Text::make('description'),
-                Number::make('price'),
-                Number::make('rooms'),
-                Text::make('address'),
+                Text::make('title')->sortable(),
+                Text::make('description')->hideOnIndex(),
+                Number::make('price')->sortable(),
+                Number::make('rooms')->sortable(),
+                Text::make('address')->sortable()->hideOnIndex(),
                 Enum::make('gender')->attach(Gender::class)->sortable(),
-                Number::make('user_id')->sortable(),
-                Number::make('branch_id')->sortable(),
-                Number::make('status_id')->sortable(),
+                BelongsTo::make('users', resource: new UserResource())->sortable(),
+                BelongsTo::make('branch', resource: new BranchResource())->sortable(),
+                BelongsTo::make('status', resource: new StatusResource())->sortable(),
+                HasMany::make('image', relationName: 'image', resource: new ImageResource())->onlyLink(),
 
             ]),
         ];

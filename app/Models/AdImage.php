@@ -13,4 +13,9 @@ class AdImage extends Model
         'ad_id',
         'name',
     ];
+
+    public function ad(): \Illuminate\Database\Eloquent\Relations\BelongsTo
+    {
+        return $this->belongsTo(Ad::class);
+    }
 }

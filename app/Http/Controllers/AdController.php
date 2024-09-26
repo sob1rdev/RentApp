@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Ad;
 use App\Models\AdImage;
+use App\Models\Branch;
 use App\Models\Status;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
@@ -11,9 +12,10 @@ use Illuminate\Support\Facades\Storage;
 class AdController extends Controller
 {
 
-    public function index(): \Illuminate\Contracts\View\View|\Illuminate\Contracts\View\Factory|\Illuminate\Foundation\Application
+    public function index()
     {
-       $ads = Ad::all();
+       $ads = Ad::with('image', 'branch')->get();
+
        return view('ads.index', compact('ads'));
     }
 
@@ -57,7 +59,8 @@ class AdController extends Controller
      */
     public function show(string $id): \Illuminate\Contracts\View\View|\Illuminate\Contracts\View\Factory|\Illuminate\Foundation\Application
     {
-        $ad = Ad::query()->find($id);
+        $ad = Ad::with('branch')->find($id);
+//        $branch = Branch::all();
         return view('ads.show', compact('ad'));
     }
 

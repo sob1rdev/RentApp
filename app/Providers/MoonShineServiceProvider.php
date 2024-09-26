@@ -7,6 +7,7 @@ namespace App\Providers;
 use App\Models\Branch;
 use App\MoonShine\Resources\AdResource;
 use App\MoonShine\Resources\BranchResource;
+use App\MoonShine\Resources\ImageResource;
 use App\MoonShine\Resources\UserResource;
 use MoonShine\Providers\MoonShineApplicationServiceProvider;
 use MoonShine\MoonShine;
@@ -54,11 +55,13 @@ class MoonShineServiceProvider extends MoonShineApplicationServiceProvider
                 ),
             ]),
 
-            MenuItem::make('Ads', new AdResource()),
+            MenuItem::make('Asosiy sahifa', url('/'))->icon('heroicons.home-modern')->customLinkAttributes(['target' => '_blank']),
+            MenuItem::make('Ads', new AdResource())->icon('heroicons.home-modern'),
 
 //
-            MenuItem::make('Branches', new BranchResource()),
-            MenuItem::make('Users', new UserResource()),
+            MenuItem::make('Branches', new BranchResource())->icon('heroicons.home'),
+            MenuItem::make('image', new ImageResource())->icon('heroicons.photo'),
+            MenuItem::make('Users', new UserResource())->icon('heroicons.user'),
 
             MenuItem::make('Documentation', 'https://moonshine-laravel.com/docs')
                 ->badge(fn() => 'Check')

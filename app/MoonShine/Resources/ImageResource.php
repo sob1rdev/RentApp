@@ -4,32 +4,27 @@ declare(strict_types=1);
 
 namespace App\MoonShine\Resources;
 
-use App\MoonShine\Pages\Gender;
+use App\Models\AdImage;
 use Illuminate\Database\Eloquent\Model;
-use App\Models\User;
 
-use MoonShine\Fields\Email;
-use MoonShine\Fields\Enum;
-use MoonShine\Fields\Password;
-use MoonShine\Fields\Relationships\HasMany;
+
+use MoonShine\Fields\Image;
 use MoonShine\Fields\Text;
 use MoonShine\Resources\ModelResource;
 use MoonShine\Decorations\Block;
 use MoonShine\Fields\ID;
 use MoonShine\Fields\Field;
 use MoonShine\Components\MoonShineComponent;
-use function Laravel\Prompts\password;
 
-/**
- * @extends ModelResource<User>
- */
-class UserResource extends ModelResource
+
+class ImageResource extends ModelResource
 {
-    protected string $model = User::class;
+    protected string $model = AdImage::class;
 
-    protected string $title = 'Users';
+    protected string $title = 'Images';
 
-    public string $column = "name";
+    public string $column = 'name';
+
 
     /**
      * @return list<MoonShineComponent|Field>
@@ -39,18 +34,13 @@ class UserResource extends ModelResource
         return [
             Block::make([
                 ID::make()->sortable(),
-                Text::make('name'),
-                Email::make('email'),
-                Password::make('password'),
-                Enum::make('gender')->attach(Gender::class)->sortable(),
-                Text::make('position')->hideOnIndex(),
-                HasMany::make('E`lonlar', 'ads')->onlyLink()
+                Image::make('name')->disk('public'),
             ]),
         ];
     }
 
     /**
-     * @param User $item
+     * @param Image $item
      *
      * @return array<string, string[]|string>
      * @see https://laravel.com/docs/validation#available-validation-rules

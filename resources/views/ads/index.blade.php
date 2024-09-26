@@ -177,9 +177,10 @@
             <div class="grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-[30px]">
 
                 @foreach ($ads as $ad)
+{{--                    @dump($ad)--}}
                     <div class="group rounded-xl bg-white dark:bg-slate-900 shadow hover:shadow-xl dark:hover:shadow-xl dark:shadow-gray-700 dark:hover:shadow-gray-700 overflow-hidden ease-in-out duration-500">
                         <div class="relative">
-                            <img src="../assets/images/ads/{{$ad->image}}" alt="">
+                            <img src="{{asset("/storage/".$ad->image->first()?->name)}} " alt="">
 
                             <div class="absolute top-4 end-4">
                                 <a href="javascript:void(0)" class="btn btn-icon bg-white dark:bg-slate-900 shadow dark:shadow-gray-700 rounded-full text-slate-100 dark:text-slate-700 focus:text-red-600 dark:focus:text-red-600 hover:text-red-600 dark:hover:text-red-600"><i class="mdi mdi-heart text-[20px]"></i></a>
@@ -193,18 +194,18 @@
 
                             <ul class="py-6 border-y border-slate-100 dark:border-gray-800 flex items-center list-none">
                                 <li class="flex items-center me-4">
-                                    <i class="uil uil-compress-arrows text-2xl me-2 text-green-600"></i>
-                                    <span>8000sqf</span>
+                                    <i data-feather="map-pin" class="uil uil-compress-arrows text-2xl me-2 text-green-600"></i>
+                                    <span>{{$ad->branch->name}}</span>
                                 </li>
 
                                 <li class="flex items-center me-4">
-                                    <i class="uil uil-bed-double text-2xl me-2 text-green-600"></i>
-                                    <span>4 Beds</span>
+                                    <i data-feather="code" class="uil uil-bed-double text-2xl me-2 text-green-600"></i>
+                                    <span>{{$ad->gender}}</span>
                                 </li>
 
                                 <li class="flex items-center">
-                                    <i class="uil uil-bath text-2xl me-2 text-green-600"></i>
-                                    <span>4 Baths</span>
+                                    <i data-feather="home" class="uil uil-bath text-2xl me-2 text-green-600"></i>
+                                    <span>{{$ad->rooms}} rooms</span>
                                 </li>
                             </ul>
 
